@@ -8,7 +8,7 @@ if (get_option('show_on_front') == 'page' && get_option('page_on_front') == get_
 
     // if we have a valid domain, redirect to it
     if (isset($app_settings['domain_name']) && filter_var('http://'.$app_settings['domain_name'], FILTER_VALIDATE_URL)) {
-        header("Location: http://".$app_settings['domain_name']);
+        header("Location: http://".$app_settings['domain_name']."?mobileload=redirect");
         exit();
     }
 
@@ -49,7 +49,7 @@ if (get_option('show_on_front') == 'page' && get_option('page_on_front') == get_
 
 	// check if we have a valid domain
 	if (isset($arr_config_premium['domain_name']) && filter_var('http://' . $arr_config_premium['domain_name'], FILTER_VALIDATE_URL)) {
-		header("Location: http://" . $arr_config_premium['domain_name'] . $pageUrlParam);
+		header("Location: http://" . $arr_config_premium['domain_name'] . "?mobileload=redirect" . $pageUrlParam);
 	} else {
 		header("Location: " . home_url() . $pageUrlParam);
 	}

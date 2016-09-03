@@ -275,6 +275,24 @@ if (!class_exists('WMobilePack_Application')) {
         }
 
 
+		/**
+		* Set automatic redirect cookie (for load experiment)
+		*/
+		protected function set_automatic_redirects_cookie($value)
+        {
+            $WMobilePackCookie = new WMobilePack_Cookie();
+            $WMobilePackCookie->set_cookie('automatic_redirects', $value, 2592000);
+        }
+
+		/**
+		* Get automatic redirect cookie (for load experiment)
+		*/
+		protected function get_automatic_redirects_cookie()
+        {
+            $WMobilePackCookie = new WMobilePack_Cookie();
+            return $WMobilePackCookie->get_cookie('automatic_redirects');
+        }
+
         /**
          * Check if the Premium app has a subdomain and smart app banner that will disable automatic redirects
          *
@@ -290,10 +308,25 @@ if (!class_exists('WMobilePack_Application')) {
                     // Check if we have a valid subdomain linked to the Premium theme
                     if (isset($arr_config_premium->domain_name) && filter_var('http://' . $arr_config_premium->domain_name, FILTER_VALIDATE_URL)) {
 
+						$redirects_cookie = $this->get_automatic_redirects_cookie();
+
+						if ($redirects_cookie === 'banner'){
+							return false;
+						} elseif ($redirects_cookie === 'redirect'){
+							return true;
+						}
+
                         // Check if the app has an active smart app banner
                         if (isset($arr_config_premium->smart_app_banner) && filter_var('http://' . $arr_config_premium->smart_app_banner, FILTER_VALIDATE_URL)) {
-                            return false;
+
+							$use_banner = rand(0,1) == 1;
+							if ($use_banner){
+								$this->set_automatic_redirects_cookie('banner');
+								return false;
+							}
                         }
+
+						$this->set_automatic_redirects_cookie('redirect');
                     }
                 }
             }

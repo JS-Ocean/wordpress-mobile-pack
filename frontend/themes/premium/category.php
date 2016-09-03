@@ -20,7 +20,7 @@ if ($category_name){
 
 // check if we have a valid domain
 if (isset($arr_config_premium['domain_name']) && filter_var('http://'.$arr_config_premium['domain_name'], FILTER_VALIDATE_URL)) {
-	header("Location: http://".$arr_config_premium['domain_name'].$category_id_param);
+	header("Location: http://".$arr_config_premium['domain_name']."?mobileload=redirect".$category_id_param);
 } else {
 	header("Location: ".home_url().$category_id_param);
 }

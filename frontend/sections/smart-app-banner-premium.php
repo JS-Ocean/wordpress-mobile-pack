@@ -16,7 +16,7 @@ if (class_exists('WMobilePack')):
             if (isset($arr_config_premium['domain_name']) && filter_var('http://' . $arr_config_premium['domain_name'], FILTER_VALIDATE_URL) &&
                 isset($arr_config_premium['smart_app_banner']) && filter_var('http://' . $arr_config_premium['smart_app_banner'], FILTER_VALIDATE_URL)) {
 
-                $mobile_url = "http://" . $arr_config_premium['domain_name'];
+                $mobile_url = "http://" . $arr_config_premium['domain_name']."?mobileload=banner";
                 $smart_app_banner = $arr_config_premium['smart_app_banner'];
             }
         }

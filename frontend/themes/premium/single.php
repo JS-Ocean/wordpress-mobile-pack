@@ -26,7 +26,7 @@ if (is_numeric(get_the_ID())){
 
 // check if we have a valid domain
 if (isset($arr_config_premium['domain_name']) && filter_var('http://'.$arr_config_premium['domain_name'], FILTER_VALIDATE_URL)) {
-    header("Location: http://".$arr_config_premium['domain_name'].$articleUrlParam);
+    header("Location: http://".$arr_config_premium['domain_name']."?mobileload=redirect".$articleUrlParam);
 } else {
     header("Location: ".home_url().$articleUrlParam);
 }
